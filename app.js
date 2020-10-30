@@ -42,11 +42,27 @@ function addTask(e) {
   li.appendChild(link);
   // Append li to ul
   taskList.appendChild(li);
+  // Store task in local storage
+  storeTaskInLocalStorage(taskInput.value);
   // Clear input
   taskInput.value = '';
   // Prevent the submit button from performing the default button logic (which is to submit a form)
   e.preventDefault();
 }
+
+// Store Task
+function storeTaskInLocalStorage(task) {
+  let tasks;
+  if(localStorage.getItem('tasks') === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  tasks.push(task);
+
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+};
 
 // Remove task
 function removeTask(e) {
